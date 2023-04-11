@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
-import { EmployeeService } from './services/employee.service';
-import { LoginComponent } from './users/login/login.component';
+import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
+import { EmployeeService } from '../services/employee.service';
+import { LoginComponent } from '../users/login/login.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-app-bar',
+  templateUrl: './app-bar.component.html',
+  styleUrls: ['./app-bar.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppBarComponent implements OnInit{
   title = 'Employee_CRUD';
 
 
