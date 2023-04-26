@@ -20,13 +20,13 @@
     {
       "firstName": "srinivas",
       "lastName": "kurumalla",
-      "email": "sri@gmail.com",
+      "email": "srinivas@gmail.com",
       "dob": "2000-10-25T18:30:00.000Z",
       "gender": "male",
       "education": "Under Graduation",
       "company": "Infinite",
-      "experience": 1,
-      "package": 4.5,
+      "experience": 2,
+      "package": 8,
       "id": 1
     },
     {
@@ -35,35 +35,11 @@
       "email": "chandu@gmail.com",
       "dob": "1999-07-25T18:30:00.000Z",
       "gender": "male",
-      "education": "Under Graduation",
+      "education": "Post Graduation",
       "company": "Infinite",
-      "experience": 1,
-      "package": 4.5,
+      "experience": 2,
+      "package": 8,
       "id": 2
-    },
-    {
-      "firstName": "Rakesh",
-      "lastName": "Bammidi",
-      "email": "",
-      "dob": "",
-      "gender": "",
-      "education": "",
-      "company": "",
-      "experience": "",
-      "package": "",
-      "id": 3
-    },
-    {
-      "firstName": "Ajay",
-      "lastName": "",
-      "email": "",
-      "dob": "",
-      "gender": "",
-      "education": "",
-      "company": "",
-      "experience": "",
-      "package": "",
-      "id": 4
     }
   ]
 }

@@ -18,18 +18,19 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { PaymentComponent } from './payment/payment.component';
-import { LoginComponent } from './users/login/login.component';
 import { AppBarComponent } from './app-bar/app-bar.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+
+import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
     EmpAddEditComponent,
-    PaymentComponent,
-    LoginComponent,
-    AppBarComponent,
-    WelcomeComponent
+
+    AppBarComponent
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +50,11 @@ import { WelcomeComponent } from './welcome/welcome.component';
 
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

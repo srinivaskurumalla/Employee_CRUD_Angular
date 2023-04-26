@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EmpAddEditComponent } from './emp-add-edit/emp-add-edit.component';
 import { EmployeeService } from './services/employee.service';
-import { LoginComponent } from './users/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +22,7 @@ export class AppComponent implements OnInit{
     this._dailog.open(EmpAddEditComponent);
 
   }
-  LoginForm() {
-    this._dailog.open(LoginComponent);
-  }
+
 
   getEmployees() {
     this.empService.getEmployees().subscribe({
