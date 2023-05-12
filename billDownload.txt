@@ -1,0 +1,103 @@
+using Employee_CRUD.Repositories;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Events;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Net.Mime;
+
+namespace Employee_CRUD.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BillsController : ControllerBase
+    {
+        private readonly BillsRepo _billsRepo;
+        private readonly EmployeeRepo _userRepository;
+
+        public BillsController(BillsRepo billsRepo, EmployeeRepo userRepository)
+        {
+            _billsRepo = billsRepo;
+            _userRepository = userRepository;
+        }
+
+        [HttpGet("GetAllBills")]
+        public async Task<IActionResult> GetAllBills() 
+        {
+           var bills = await _billsRepo.GetAllBills();
+            return Ok(bills);
+        }
+
+        [HttpGet("GetBillsByEmail/{email}")]
+        public async Task<IActionResult> GetBillsByEmail(string email)
+        {
+            var bills = await _billsRepo.GetBillByEmail(email);
+            return Ok(bills);
+        }
+
+        [HttpGet("download-bill/{billId}")]
+        public async Task<IActionResult> DownloadBill(int billId)
+        {
+            // get bill information from database
+            var bill = await _billsRepo.GetBillById(billId);
+
+            // create PDF document using iText7 library
+            using (var memoryStream = new MemoryStream())
+            {
+                var writer = new PdfWriter(memoryStream);
+                var pdf = new PdfDocument(writer);
+                var document = new Document(pdf);
+
+                //header
+                var table = new Table(UnitValue.CreatePercentArray(new[] { 1f }));
+                table.SetWidth(UnitValue.CreatePercentValue(100f));
+                var headerCell = new Cell().Add(new Paragraph("Employee Bill"))
+                                    .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                                    .SetFontSize(18)
+                                     .SetTextAlignment(TextAlignment.CENTER)
+                                    .SetBackgroundColor(ColorConstants.LIGHT_GRAY);
+                table.AddHeaderCell(headerCell);
+
+                document.Add(table);
+
+                // Write content above the header
+              //  document.Add(new Paragraph("Employee Bills"));
+
+                // Add a header
+              /*  document.Add(new iText.Layout.Element.Header("My Header")
+                      .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
+                      .SetFontSize(18)
+                      .SetBackgroundColor(ColorConstants.LIGHT_GRAY));*/
+
+                document.Add(new Paragraph($"Bill ID: {bill.Id}"));
+                document.Add(new Paragraph($"User Name: {bill.UserName}"));
+
+                document.Add(new Paragraph($"Bill Name : {bill.BillName}"));
+                document.Add(new Paragraph($"Bill amount: {bill.Amount}"));
+                document.Add(new Paragraph($"Bill date: {DateTime.Now}"));
+
+                document.Close();
+
+                // set response headers for PDF file download
+                var contentDisposition = new ContentDisposition
+                {
+                    FileName = "bill.pdf",
+                    Inline = false
+                };
+                Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+                Response.ContentType = "application/pdf";
+
+                // return PDF file content as response
+                return File(memoryStream.ToArray(), "application/pdf");
+            }
+        }
+
+
+    }
+}
